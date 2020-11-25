@@ -25,7 +25,8 @@ class Concentration {
     }
 
     public init(numberOfCardsToMatch: Int) {
-        assert(numberOfCardsToMatch == 2 || numberOfCardsToMatch == 3, "Concentration.init(\(numberOfCardsToMatch)): Must have at least one pair of cards.")
+        assert(numberOfCardsToMatch == 2 || numberOfCardsToMatch == 3,
+               "Concentration.init(\(numberOfCardsToMatch)): Must have at least one pair of cards.")
         self.cardsToMatch = numberOfCardsToMatch
         resetGame(numberOfCardsToMatch: self.cardsToMatch)
     }
@@ -42,15 +43,17 @@ class Concentration {
         // If there's enough cards for a match, check for the match.
         else if cardsSelectedCount == cardsToMatch {
             var selectedCards = [Card]()
-            for card in cardsDealt {
-                if card.isSelected { selectedCards.append(card) }
-            }
+            for card in cardsDealt where card.isSelected { selectedCards.append(card) }
             // Match found!
             if selectedCards.allSatisfy({$0 == selectedCards.first}) {
                 score += cardsToMatch
                 selectedCards.forEach {
                     // Replaces matched cards at their current index, so that the other cards are not scattered.
-                    if let newCard = cards.dealCard() { cardsDealt[cardsDealt.firstIndex(of: $0)!] = newCard } else { cardsDealt.remove(at: cardsDealt.firstIndex(of: $0)!) }
+                    if let newCard = cards.dealCard() {
+                        cardsDealt[cardsDealt.firstIndex(of: $0)!] = newCard
+                    } else {
+                        cardsDealt.remove(at: cardsDealt.firstIndex(of: $0)!)
+                    }
                 }
             }
             // No match found, deselect cards and penalize score if necessary.

@@ -520,7 +520,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="joF-R5-X3y" firstAttribute="centerX" secondItem="RFb-fg-s4n" secondAttribute="centerX" id="94r-sT-4MR"/>
                             <constraint firstItem="joF-R5-X3y" firstAttribute="centerY" secondItem="RFb-fg-s4n" secondAttribute="centerY" id="E04-J9-jBR"/>

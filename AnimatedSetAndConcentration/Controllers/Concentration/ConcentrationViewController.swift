@@ -15,7 +15,8 @@ class ConcentrationViewController: UIViewController {
     @IBOutlet private var cardButtons: [UIButton]!
     @IBOutlet weak var twoCardButton: UIButton!
     @IBOutlet weak var threeCardButton: UIButton!
-    private var emojiChoices = ["🚗", "🚕", "🚙", "🚒", "🚖", "🚘", "🚚", "🚛", "🚍", "🚌", "🚎", "🏎", "🚓", "🚐", "🚜", "🛺", "✈️", "🚤", "🚂", "🚆"]
+    private var emojiChoices = ["🚗", "🚕", "🚙", "🚒", "🚖", "🚘", "🚚", "🚛", "🚍", "🚌", "🚎",
+                                "🏎", "🚓", "🚐", "🚜", "🛺", "✈️", "🚤", "🚂", "🚆"]
     public var theme: [String] = [] {
         didSet {
             emojiChoices = theme
