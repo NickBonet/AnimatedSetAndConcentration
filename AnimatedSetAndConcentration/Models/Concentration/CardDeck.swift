@@ -22,21 +22,21 @@ class CardDeck {
             identifier += 1
         }
     }
-    
+
     public func dealCard() -> Card? {
         if count() > 0 {
             return cards.removeFirst()
         } else { return nil }
     }
-    
+
     public func count() -> Int {
         return cards.count
     }
-    
+
     public func isEmpty() -> Bool {
         return count() == 0 ? true : false
     }
-    
+
     public func shuffle() {
         cards.shuffle()
     }

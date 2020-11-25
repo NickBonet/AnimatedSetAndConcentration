@@ -15,6 +15,7 @@
 		26F44585256EE5FC0030FE16 /* Concentration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F44582256EE5FC0030FE16 /* Concentration.swift */; };
 		26F44586256EE5FC0030FE16 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F44583256EE5FC0030FE16 /* Card.swift */; };
 		26F44588256EE67E0030FE16 /* ConcentrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F44587256EE67E0030FE16 /* ConcentrationViewController.swift */; };
+		26F4458A256EE8A20030FE16 /* ConcentrationThemeChooserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F44589256EE8A20030FE16 /* ConcentrationThemeChooserController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		26F44582256EE5FC0030FE16 /* Concentration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Concentration.swift; sourceTree = "<group>"; };
 		26F44583256EE5FC0030FE16 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		26F44587256EE67E0030FE16 /* ConcentrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcentrationViewController.swift; sourceTree = "<group>"; };
+		26F44589256EE8A20030FE16 /* ConcentrationThemeChooserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrationThemeChooserController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				26F44587256EE67E0030FE16 /* ConcentrationViewController.swift */,
+				26F44589256EE8A20030FE16 /* ConcentrationThemeChooserController.swift */,
 			);
 			path = Concentration;
 			sourceTree = "<group>";
@@ -128,6 +131,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 26F44574256EE5010030FE16 /* Build configuration list for PBXNativeTarget "AnimatedSetAndConcentration" */;
 			buildPhases = (
+				26F4458B256EF9F80030FE16 /* ShellScript */,
 				26F4455C256EE5000030FE16 /* Sources */,
 				26F4455D256EE5000030FE16 /* Frameworks */,
 				26F4455E256EE5000030FE16 /* Resources */,
@@ -186,6 +190,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		26F4458B256EF9F80030FE16 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint autocorrect\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		26F4455C256EE5000030FE16 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -197,6 +221,7 @@
 				26F44564256EE5000030FE16 /* AppDelegate.swift in Sources */,
 				26F44584256EE5FC0030FE16 /* CardDeck.swift in Sources */,
 				26F44566256EE5000030FE16 /* SceneDelegate.swift in Sources */,
+				26F4458A256EE8A20030FE16 /* ConcentrationThemeChooserController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

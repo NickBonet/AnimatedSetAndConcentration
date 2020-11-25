@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct Card : Equatable {
+struct Card: Equatable {
     public var identifier: Int
     public var wasSeen = false
     public var isSelected = false
-    
+
     public init(_ identifier: Int) {
         self.identifier = identifier
     }
-    
-    static func ==(lhs: Card, rhs: Card) -> Bool {
+
+    static func == (lhs: Card, rhs: Card) -> Bool {
         return lhs.identifier == rhs.identifier && lhs.isSelected == rhs.isSelected
     }
 }

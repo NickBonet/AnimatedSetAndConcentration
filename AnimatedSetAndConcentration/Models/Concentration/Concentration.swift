@@ -12,27 +12,24 @@ class Concentration {
     private var cardsToMatch: Int
     private var cards: CardDeck = CardDeck(numberOfCardsToMatch: 2)
     private var cardsSelectedCount: Int {
-        get {
-            var count = 0
-            for card in cardsDealt { if card.isSelected { count += 1 } }
-            return count
-        }
+        var count = 0
+        for card in cardsDealt where card.isSelected { count += 1 }
+        return count
     }
     public var cardsDealt = [Card]()
     public var flipCount = 0
-    public var currentEmojiTheme = 0
     public var score = 0 {
         didSet {
             if score < 0 { score = 0 }
         }
     }
-    
-    public init(numberOfCardsToMatch: Int, numberOfEmojiThemes: Int) {
+
+    public init(numberOfCardsToMatch: Int) {
         assert(numberOfCardsToMatch == 2 || numberOfCardsToMatch == 3, "Concentration.init(\(numberOfCardsToMatch)): Must have at least one pair of cards.")
         self.cardsToMatch = numberOfCardsToMatch
-        resetGame(numberOfCardsToMatch: self.cardsToMatch, numberOfEmojiThemes: numberOfEmojiThemes)
+        resetGame(numberOfCardsToMatch: self.cardsToMatch)
     }
-    
+
     public func chooseCard(at index: Int) {
         assert(cardsDealt.indices.contains(index), "Concentration.chooseCard(at: \(index)): chosen index not valid.")
         let card = cardsDealt[index]
@@ -53,8 +50,7 @@ class Concentration {
                 score += cardsToMatch
                 selectedCards.forEach {
                     // Replaces matched cards at their current index, so that the other cards are not scattered.
-                    if let newCard = cards.dealCard() { cardsDealt[cardsDealt.firstIndex(of: $0)!] = newCard }
-                    else { cardsDealt.remove(at: cardsDealt.firstIndex(of: $0)!) }
+                    if let newCard = cards.dealCard() { cardsDealt[cardsDealt.firstIndex(of: $0)!] = newCard } else { cardsDealt.remove(at: cardsDealt.firstIndex(of: $0)!) }
                 }
             }
             // No match found, deselect cards and penalize score if necessary.
@@ -72,9 +68,9 @@ class Concentration {
         print("Cards dealt: \(cardsDealt.count)")
         print("Cards selected: \(cardsSelectedCount)")
     }
-    
+
     // Reset all necessary variables for new game.
-    public func resetGame(numberOfCardsToMatch: Int, numberOfEmojiThemes: Int) {
+    public func resetGame(numberOfCardsToMatch: Int) {
         flipCount = 0
         score = 0
         self.cardsToMatch = numberOfCardsToMatch
@@ -84,14 +80,13 @@ class Concentration {
         while cardsDealt.count < 25 {
             cardsDealt.append(cards.dealCard()!)
         }
-        currentEmojiTheme = Int.random(in: 1...numberOfEmojiThemes)
     }
-    
+
     // Simply checks if the passed card is selected or not.
     public func isCardSelected(_ card: Card) -> Bool {
         return card.isSelected
     }
-    
+
     // Sets properties for when a card is selected.
     private func setCardSelected(_ index: Int) {
         if cardsDealt.indices.contains(index) {
