@@ -21,7 +21,7 @@ class SetViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(addThreeCards(_:)))
+        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(addThreeCardsButton(_:)))
         swipeDownGesture.direction = .down
         self.view.addGestureRecognizer(swipeDownGesture)
 
@@ -58,9 +58,19 @@ class SetViewController: UIViewController {
         updateGameView()
     }
 
-    @IBAction private func addThreeCards(_ sender: Any) {
+    private func addThreeCardsLogic() {
+        if game.isSet() {
+            Timer.scheduledTimer(withTimeInterval: 1.4, repeats: false) { _ in
+                self.game.addThreeCards()
+                self.updateGameView()
+            }
+        }
         game.addThreeCards()
         updateGameView()
+    }
+
+    @IBAction private func addThreeCardsButton(_ sender: Any) {
+        addThreeCardsLogic()
     }
 
     // Handles updating game view state on each action.
@@ -68,6 +78,7 @@ class SetViewController: UIViewController {
         print("Cards in deck: \(game.setDeck.count)")
         print("Cards selected: \(game.setCardsSelected.count)")
         print("Cards left unselected: \(game.setCardsOnScreen.count)")
+        if game.isSet() { addThreeCardsLogic() }
         updateCards()
         updateScoreLabel()
         update3CardsButton()
@@ -98,14 +109,24 @@ class SetViewController: UIViewController {
                     cardView.frame = self.cardGrid[cardIndex]!.insetBy(dx: 2, dy: 2)
                 }, completion: { _ in
                     if !cardView.isCardFaceUp() {
-                        cardView.flipCard()
+                        cardView.flipCard(closure: {})
                     }
                 })
                 cardView.updateCardView(newCard: card, selected: game.isCardSelected(card),
                                         matchState: game.isCardMatched(card))
             } else {
-                setCardButtons.remove(at: cardIndex)
-                cardView.removeFromSuperview()
+                cardView.flipCard(closure: {
+                    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.6, delay: 0,
+                                                                       options: [.curveEaseIn, .beginFromCurrentState],
+                                                                       animations: {
+                            cardView.frame = CGRect(x: self.cardsOnScreenView.bounds.width - cardView.bounds.width, y: 0, width: cardView.bounds.width, height: cardView.bounds.height)
+                        }, completion: { _ in
+                            cardView.removeFromSuperview()
+                        })
+                    })
+                if let index = self.setCardButtons.firstIndex(of: cardView) {
+                    self.setCardButtons.remove(at: index)
+                }
             }
         }
     }
@@ -118,7 +139,8 @@ class SetViewController: UIViewController {
             let cardIndex = setCardButtons.count
             let card = game.setCardsOnScreen[cardIndex]
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchCard(_:)))
-            let setCardView = SetCardView(frame: cardGrid[cardIndex]!.insetBy(dx: 2, dy: 2),
+            let setCardView = SetCardView(frame: CGRect(x: 0, y: 0, width: cardGrid[cardIndex]!.width,
+                                                         height: cardGrid[cardIndex]!.height),
                                           card: card, selected: false, matchState: MatchState.unchecked)
             setCardView.addGestureRecognizer(tapGesture)
             setCardButtons.append(setCardView)

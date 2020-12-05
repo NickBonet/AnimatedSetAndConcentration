@@ -111,17 +111,19 @@ import UIKit
     }
 
     // Takes care of the flip animation for the card view.
-    public func flipCard() {
+    public func flipCard(closure: @escaping () -> Void) {
         UIView.transition(with: self, duration: 0.6, options: [.transitionFlipFromLeft], animations: {
-            self.isFaceUp = true
+            self.isFaceUp = !self.isFaceUp
+        }, completion: { _ in
+            closure()
         })
     }
 
     private func drawBackOfCard() {
-        self.layer.cornerRadius = 5
+        self.layer.cornerRadius = cardCornerRadius
         self.clipsToBounds = true
 
-        let roundRect = UIBezierPath(roundedRect: bounds, cornerRadius: 5)
+        let roundRect = UIBezierPath(roundedRect: bounds, cornerRadius: cardCornerRadius)
         roundRect.addClip()
         roundRect.lineWidth = 4.5
         UIColor.gray.setFill()

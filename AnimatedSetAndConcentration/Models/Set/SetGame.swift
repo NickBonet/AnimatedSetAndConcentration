@@ -60,9 +60,6 @@ class SetGame {
     // If no match, add 3 cards to the game. (and clear mismatch is there is one)
     public func addThreeCards() {
         if isSet() {
-            // Since the clearMatch() method only adds cards when there's < 12 cards on screen,
-            // add them here in the case of replacing a set while there's > 12 cards on screen.
-            for _ in 1...3 where setCardsOnScreen.count > 12 { addCardToGame() }
             clearMatch()
         } else if setDeck.count > 0 {
             score.changeScore(value: -1)
