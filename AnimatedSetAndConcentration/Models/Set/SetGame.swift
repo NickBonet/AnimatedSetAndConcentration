@@ -58,11 +58,11 @@ class SetGame {
     // Handles adding three more cards to the game.
     // If there's a match, clear the matched cards and replace them.
     // If no match, add 3 cards to the game. (and clear mismatch is there is one)
-    public func addThreeCards() {
+    public func addThreeCards(deductPoints: Bool) {
         if isSet() {
             clearMatch()
         } else if setDeck.count > 0 {
-            score.changeScore(value: -1)
+            if deductPoints { score.changeScore(value: -1) }
             for _ in 1...3 { addCardToGame() }
             if setCardsSelected.count == 3 && !isSet() { clearMismatch() }
         }

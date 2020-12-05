@@ -61,11 +61,11 @@ class SetViewController: UIViewController {
     private func addThreeCardsLogic() {
         if game.isSet() {
             Timer.scheduledTimer(withTimeInterval: 1.4, repeats: false) { _ in
-                self.game.addThreeCards()
+                self.game.addThreeCards(deductPoints: false)
                 self.updateGameView()
             }
         }
-        game.addThreeCards()
+        game.addThreeCards(deductPoints: true)
         updateGameView()
     }
 
